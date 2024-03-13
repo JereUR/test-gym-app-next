@@ -2,24 +2,45 @@ import { supabase } from './supabase'
 
 export const fetchUsers = async (q, page) => {
   const ITEM_PER_PAGE = 4
-  const regex = `ilike '%${q}%'`
 
-  try {
-    const { data, error } = await supabase
-      .from('users')
-      .select('*')
-      .ilike('username', regex)
-      .order('username', { ascending: true })
-      .range((page - 1) * ITEM_PER_PAGE, page * ITEM_PER_PAGE - 1)
+  if (q === '') {
+    try {
+      const { data, error } = await supabase
+        .from('users')
+        .select('*')
+        .order('username', { ascending: true })
+        .range((page - 1) * ITEM_PER_PAGE, page * ITEM_PER_PAGE - 1)
 
-    if (error) {
-      throw new Error('Failed to fetch users!')
+      if (error) {
+        throw new Error('Failed to fetch users!')
+      }
+
+      const count = data.length
+      return { users: data, count }
+    } catch (error) {
+      throw error
     }
+  } else {
+    try {
+      const { data, error } = await supabase
+        .from('users')
+        .select('*')
+        .ilike('username', q)
+        .order('username', { ascending: true })
+        .range((page - 1) * ITEM_PER_PAGE, page * ITEM_PER_PAGE - 1)
 
-    const count = data.length
-    return { users: data, count }
-  } catch (error) {
-    throw error
+      console.log(data)
+      console.log(error)
+
+      if (error) {
+        throw new Error('Failed to fetch users!')
+      }
+
+      const count = data.length
+      return { users: data, count }
+    } catch (error) {
+      throw error
+    }
   }
 }
 

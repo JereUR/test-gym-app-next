@@ -5,18 +5,16 @@ import { redirect } from 'next/navigation'
 import bcrypt from 'bcrypt'
 
 import { supabase } from './supabase'
-import { filterUser } from './index'
 
 export const addUser = async (formData) => {
   const { username, email, password, phone, address, isAdmin, isActive } =
     Object.fromEntries(formData)
 
   try {
-    connectToDB()
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
 
-    await supabase
+    const { error } = await supabase
       .from('users')
       .insert([
         {
@@ -30,6 +28,7 @@ export const addUser = async (formData) => {
         }
       ])
       .select()
+    if (error) throw new Error(error)
   } catch (error) {
     console.log(error)
     throw new Error('Failed to create user!')
