@@ -1,13 +1,14 @@
 import { supabase } from './supabase'
 
-export const fetchUsers = async (q, page) => {
+export const fetchUsers = async (q = null, page) => {
   const ITEM_PER_PAGE = 4
 
-  if (q === '') {
+  if (q) {
     try {
       const { data, error } = await supabase
         .from('users')
         .select('*')
+        .ilike('username', q)
         .order('username', { ascending: true })
         .range((page - 1) * ITEM_PER_PAGE, page * ITEM_PER_PAGE - 1)
 
@@ -25,12 +26,8 @@ export const fetchUsers = async (q, page) => {
       const { data, error } = await supabase
         .from('users')
         .select('*')
-        .ilike('username', q)
         .order('username', { ascending: true })
         .range((page - 1) * ITEM_PER_PAGE, page * ITEM_PER_PAGE - 1)
-
-      console.log(data)
-      console.log(error)
 
       if (error) {
         throw new Error('Failed to fetch users!')
@@ -80,26 +77,44 @@ export const filterUser = async (column, value) => {
   }
 }
 
-export const fetchCustomRoutines = async (q, page) => {
+export const fetchCustomRoutines = async (q = null, page) => {
   const ITEM_PER_PAGE = 4
   const regex = `ilike '%${q}%'`
+  if (q) {
+    try {
+      const { data, error } = await supabase
+        .from('custom_routines')
+        .select('*')
+        .ilike('name', regex)
+        .order('name', { ascending: true })
+        .range((page - 1) * ITEM_PER_PAGE, page * ITEM_PER_PAGE - 1)
 
-  try {
-    const { data, error } = await supabase
-      .from('custom_routines')
-      .select('*')
-      .ilike('name', regex)
-      .order('name', { ascending: true })
-      .range((page - 1) * ITEM_PER_PAGE, page * ITEM_PER_PAGE - 1)
+      if (error) {
+        throw new Error('Failed to fetch custom routines!')
+      }
 
-    if (error) {
-      throw new Error('Failed to fetch custom routines!')
+      const count = data.length
+      return { customRoutines: data, count }
+    } catch (error) {
+      throw error
     }
+  } else {
+    try {
+      const { data, error } = await supabase
+        .from('custom_routines')
+        .select('*')
+        .order('name', { ascending: true })
+        .range((page - 1) * ITEM_PER_PAGE, page * ITEM_PER_PAGE - 1)
 
-    const count = data.length
-    return { customRoutines: data, count }
-  } catch (error) {
-    throw error
+      if (error) {
+        throw new Error('Failed to fetch custom routines!')
+      }
+
+      const count = data.length
+      return { customRoutines: data, count }
+    } catch (error) {
+      throw error
+    }
   }
 }
 
