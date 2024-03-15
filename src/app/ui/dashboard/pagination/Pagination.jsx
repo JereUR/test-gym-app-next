@@ -1,6 +1,7 @@
 'use client'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { FaArrowRight, FaArrowLeft } from 'react-icons/fa'
 
 const Pagination = ({ count }) => {
   const searchParams = useSearchParams()
@@ -24,18 +25,18 @@ const Pagination = ({ count }) => {
   return (
     <div className="p-2 flex justify-between">
       <button
-        className="py-1 px-2 bg-gray-700 rounded-md hover:bg-gray-600 cursor-pointer disabled:cursor-not-allowed"
+        className="py-2 px-3 bg-gray-700 rounded-md hover:bg-gray-600 cursor-pointer disabled:cursor-not-allowed"
         disabled={!hasPrev}
         onClick={() => handleChangePage('prev')}
       >
-        Previous
+        <FaArrowLeft size={20} />
       </button>
       <button
-        className="py-1 px-2 bg-gray-700 rounded-md hover:bg-gray-600 cursor-pointer disabled:cursor-not-allowed"
+        className="py-2 px-3 bg-gray-700 rounded-md hover:bg-gray-600 cursor-pointer disabled:cursor-not-allowed"
         disabled={!hasNext}
         onClick={() => handleChangePage('next')}
       >
-        Next
+        <FaArrowRight size={20} />
       </button>
     </div>
   )

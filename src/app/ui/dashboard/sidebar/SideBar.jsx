@@ -5,81 +5,80 @@ import {
   MdSupervisedUserCircle,
   MdShoppingBag,
   MdAttachMoney,
-  MdWork,
   MdAnalytics,
   MdPeople,
   MdOutlineSettings,
   MdHelpCenter,
   MdLogout
 } from 'react-icons/md'
-import { GiAbdominalArmor, GiMeal } from 'react-icons/gi'
+import { GiAbdominalArmor, GiMeal, GiProfit } from 'react-icons/gi'
 
 const menuItems = [
   {
     title: 'Pages',
     list: [
       {
-        title: 'Dashboard',
+        title: 'Panel',
         path: '/dashboard',
         icon: <MdDashboard />
       },
       {
-        title: 'Users',
+        title: 'Usuarios',
         path: '/dashboard/users',
         icon: <MdSupervisedUserCircle />
       },
       {
-        title: 'Routines',
+        title: 'Rutinas',
         path: '/dashboard/routines',
         icon: <GiAbdominalArmor />
       },
       {
-        title: 'Nutritional Planning',
+        title: 'Planes Nutricionales',
         path: '/dashboard/nutricional-planning',
         icon: <GiMeal />
       },
       {
-        title: 'Products',
+        title: 'Productos',
         path: '/dashboard/products',
         icon: <MdShoppingBag />
       },
       {
-        title: 'Transactions',
+        title: 'Transacciones',
         path: '/dashboard/transactions',
         icon: <MdAttachMoney />
       }
     ]
   },
   {
-    title: 'Analytics',
+    title: 'Analítica',
     list: [
       {
-        title: 'Revenue',
+        title: 'Ganancias',
         path: '/dashboard/revenue',
-        icon: <MdWork />
+        icon: <GiProfit />
       },
       {
-        title: 'Reports',
+        title: 'Reportes',
         path: '/dashboard/reports',
         icon: <MdAnalytics />
       },
       {
-        title: 'Teams',
+        title: 'Equipo',
         path: '/dashboard/teams',
         icon: <MdPeople />
       }
     ]
   },
   {
-    title: 'User',
+    title: 'Usuario',
     list: [
       {
-        title: 'Settings',
+        title: 'Configuraciones',
         path: '/dashboard/settings',
         icon: <MdOutlineSettings />
       },
       {
-        title: 'Help',
+        title: 'Ayuda',
         path: '/dashboard/help',
         icon: <MdHelpCenter />
       }

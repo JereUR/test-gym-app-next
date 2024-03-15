@@ -15,27 +15,27 @@ const UsersPage = async ({ searchParams }) => {
   return (
     <div className="bg-gray-800 p-5 rounded-lg mt-5">
       <div className="flex items-center justify-between">
-        <Search placeholder="Search for a user..." />
+        <Search placeholder="Buscar un usuario..." />
         <Link href="/dashboard/users/add">
           <button className="p-2 bg-purple-800 text-white border-none rounded-md cursor-pointer">
-            Add New
+            Agregar Nuevo
           </button>
         </Link>
       </div>
-      <table className="transactions-table w-full">
+      <table className="transactions-table w-full my-6">
         <thead>
-          <tr>
-            <td>Name</td>
+          <tr className="border-b border-gray-700">
+            <td>Nombre</td>
             <td>Email</td>
-            <td>Created At</td>
-            <td>Role</td>
-            <td>Status</td>
-            <td>Action</td>
+            <td>Creada</td>
+            <td>Rol</td>
+            <td>Estado</td>
+            <td>Acción</td>
           </tr>
         </thead>
         <tbody>
           {users.map((user) => (
-            <tr className="my-4" key={user.id}>
+            <tr className="my-4 gap-4" key={user.id}>
               <td>
                 <div className="flex items-center gap-2">
                   <Image
@@ -49,7 +49,14 @@ const UsersPage = async ({ searchParams }) => {
                 </div>
               </td>
               <td>{user.email}</td>
-              <td>{user.createdAt?.toString().slice(4, 16)}</td>
+              <td>
+                {user.created_at &&
+                  new Date(user.created_at).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                  })}
+              </td>
               <td>{user.isAdmin ? 'Admin' : 'Client'}</td>
               <td>{user.isActive ? 'Active' : 'Passive'}</td>
               <td>
@@ -57,7 +64,7 @@ const UsersPage = async ({ searchParams }) => {
                   <div>
                     <Link href={`/dashboard/users/${user.id}`}>
                       <button className="py-1 px-2 rounded-md text-white border-none cursor-pointer bg-teal-700">
-                        View
+                        Ver/Editar
                       </button>
                     </Link>
                   </div>

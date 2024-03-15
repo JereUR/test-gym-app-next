@@ -10,24 +10,25 @@ const RoutinesPage = async ({ searchParams }) => {
   const q = searchParams?.q || ''
   const page = searchParams?.page || 1
   const { customRoutines, count } = await fetchCustomRoutines(q, page)
+  console.log(customRoutines[0].created_at)
 
   return (
     <div className="bg-gray-800 p-5 rounded-lg mt-5">
       <div className="flex items-center justify-between">
-        <Search placeholder="Search for a routine..." />
+        <Search placeholder="Buscar una rutina..." />
         <Link href="/dashboard/routines/add">
           <button className="p-2 bg-purple-800 text-white border-none rounded-md cursor-pointer">
-            Add New
+            Agregar Nueva
           </button>
         </Link>
       </div>
-      <table className="transactions-table w-full">
+      <table className="transactions-table w-full my-6">
         <thead>
           <tr>
-            <td>Name</td>
-            <td>Description</td>
-            <td>Created At</td>
-            <td>Action</td>
+            <td>Nombre de Rutina</td>
+            <td>Descripción</td>
+            <td>Creada</td>
+            <td>Acción</td>
           </tr>
         </thead>
         {customRoutines.length > 0 ? (
@@ -37,14 +38,21 @@ const RoutinesPage = async ({ searchParams }) => {
                 <td>
                   <div className="flex items-center gap-2">{routine.name}</div>
                 </td>
-                <td>{routine.description}</td>
-                <td>{routine.createdAt?.toString().slice(4, 16)}</td>
+                <td>{routine.description ? routine.description : '-'}</td>
+                <td>
+                  {routine.created_at &&
+                    new Date(routine.created_at).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric'
+                    })}
+                </td>
                 <td>
                   <div className="flex gap-2">
                     <div>
                       <Link href={`/dashboard/routines/${routine.id}`}>
                         <button className="py-1 px-2 rounded-md text-white border-none cursor-pointer bg-teal-700">
-                          View
+                          Ver/Editar
                         </button>
                       </Link>
                     </div>

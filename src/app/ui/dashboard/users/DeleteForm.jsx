@@ -16,7 +16,7 @@ const DeleteForm = ({ item, onDelete, text }) => {
         onClick={() => setConfirmDelete(true)}
         className="py-1 px-2 rounded-md text-white border-none cursor-pointer bg-red-600"
       >
-        Delete
+        Eliminar
       </button>
       {confirmDelete && (
         <div className="absolute bg-gray-500 border border-gray-800 rounded-md p-4 mt-6 mr-10 gap-2">

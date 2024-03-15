@@ -23,7 +23,7 @@ const SingleUserPage = async ({ params }) => {
       <div className="w-3/4 bg-gray-800 p-5 rounded-lg">
         <form action={updateUser} className="user-form flex flex-col">
           <input type="hidden" name="id" value={id} />
-          <label>Username</label>
+          <label>Nombre</label>
           <input
             type="text"
             name="username"
@@ -37,44 +37,44 @@ const SingleUserPage = async ({ params }) => {
             placeholder={email}
             defaultValue={email}
           />
-          <label>Password</label>
+          <label>Contraseña</label>
           <input type="password" name="password" defaultValue={password} />
           <input type="hidden" name="originalPassword" value={password} />
-          <label>Phone</label>
+          <label>Teléfono</label>
           <input
             type="text"
             name="phone"
             placeholder={phone}
             defaultValue={phone}
           />
-          <label>Address</label>
+          <label>Dirección</label>
           <textarea
             name="address"
             placeholder={address}
             defaultValue={address}
           ></textarea>
-          <label>Is Admin?</label>
+          <label>Es Admin?</label>
           <select
             name="isAdmin"
             id="isAdmin"
             className="cursor-pointer"
             defaultValue={isAdmin}
           >
-            <option value={true}>Yes</option>
+            <option value={true}>Si</option>
             <option value={false}>No</option>
           </select>
-          <label>Is Active?</label>
+          <label>Está Activo?</label>
           <select
             name="isActive"
             id="isActive"
             className="cursor-pointer"
             defaultValue={isActive}
           >
-            <option value={true}>Yes</option>
+            <option value={true}>Si</option>
             <option value={false}>No</option>
           </select>
           <button className="w-full p-5 bg-teal-700 text-white border-none rounded-md cursor-pointer mt-5">
-            Update
+            Actualizar
           </button>
         </form>
       </div>

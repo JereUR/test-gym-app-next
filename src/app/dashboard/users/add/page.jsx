@@ -8,27 +8,27 @@ const addUserPage = () => {
         action={addUser}
         className="form-product flex flex-wrap justify-between"
       >
-        <input type="text" placeholder="Username" name="username" required />
+        <input type="text" placeholder="Nombre" name="username" required />
         <input type="email" placeholder="Email" name="email" required />
         <input
           type="password"
-          placeholder="Password"
+          placeholder="Contraseña"
           name="password"
           required
         />
-        <input type="number" placeholder="Phone" name="phone" />
+        <input type="number" placeholder="Teléfono" name="phone" />
         <select name="isAdmin" id="isAdmin">
           <option value={false} defaultValue={false}>
-            Is Admin?
+            Es Admin?
           </option>
-          <option value={true}>Yes</option>
+          <option value={true}>Si</option>
           <option value={false}>No</option>
         </select>
         <select name="isActive" id="isActive">
           <option value={true} defaultValue={false}>
-            Is Active?
+            Está Activo?
           </option>
-          <option value={true}>Yes</option>
+          <option value={true}>Si</option>
           <option value={false}>No</option>
         </select>
         <textarea

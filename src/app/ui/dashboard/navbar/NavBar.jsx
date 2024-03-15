@@ -22,7 +22,7 @@ const NavBar = () => {
           <input
             className="bg-transparent border-none text-white focus:outline-none"
             type="text"
-            placeholder="Search..."
+            placeholder="Buscar..."
           />
         </div>
         <div className="flex gap-5">
