@@ -39,29 +39,62 @@ export const addUser = async (formData) => {
 }
 
 export const updateUser = async (formData) => {
-  const { id, username, email, password, phone, address, isAdmin, isActive } =
-    Object.fromEntries(formData)
+  const {
+    id,
+    username,
+    email,
+    password,
+    originalPassword,
+    phone,
+    address,
+    isAdmin,
+    isActive
+  } = Object.fromEntries(formData)
 
-  try {
-    await supabase
-      .from('users')
-      .update({
-        username,
-        email,
-        password,
-        phone,
-        address,
-        isAdmin,
-        isActive
-      })
-      .eq('id', id)
-      .select()
-  } catch (error) {
-    console.log(error)
-    throw new Error('Failed to update user!')
+  if (password != originalPassword) {
+    try {
+      const salt = await bcrypt.genSalt(10)
+      const hashedPassword = await bcrypt.hash(password, salt)
+
+      await supabase
+        .from('users')
+        .update({
+          username,
+          email,
+          password: hashedPassword,
+          phone,
+          address,
+          isAdmin,
+          isActive
+        })
+        .eq('id', id)
+        .select()
+    } catch (error) {
+      console.log(error)
+      throw new Error('Failed to update user!')
+    }
+  } else {
+    try {
+      await supabase
+        .from('users')
+        .update({
+          username,
+          email,
+          phone,
+          address,
+          isAdmin,
+          isActive
+        })
+        .eq('id', id)
+        .select()
+    } catch (error) {
+      console.log(error)
+      throw new Error('Failed to update user!')
+    }
   }
 
   revalidatePath('/dashboard/users')
+  revalidatePath(`/dashboard/users/${id}`)
   redirect('/dashboard/users')
 }
 
@@ -108,7 +141,7 @@ export const addCustomRoutine = async (routineData) => {
 
 export const deleteCustomRoutine = async (id) => {
   try {
-    await supabase.from('users').delete().eq('id', id)
+    await supabase.from('custom_routines').delete().eq('id', id)
   } catch (error) {
     console.log(error)
     throw new Error('Failed to delete custom routine!')
@@ -117,13 +150,13 @@ export const deleteCustomRoutine = async (id) => {
   revalidatePath('/dashboard/routines')
 }
 
-export const updateCustomRoutine = async (formData) => {
-  const { id, name, exercises, description } = Object.fromEntries(formData)
+export const updateCustomRoutine = async (data) => {
+  const { id, name, days, description } = data
 
   try {
-    await supabase
-      .from('users')
-      .update({ name, exercises, description })
+    const { data, error } = await supabase
+      .from('custom_routines')
+      .update({ name: name, days: days, description: description })
       .eq('id', id)
       .select()
   } catch (error) {
@@ -132,5 +165,6 @@ export const updateCustomRoutine = async (formData) => {
   }
 
   revalidatePath('/dashboard/routines')
+  revalidatePath(`/dashboard/routines/${id}`)
   redirect('/dashboard/routines')
 }
