@@ -2,42 +2,30 @@ import { supabase } from './supabase'
 
 export const fetchUsers = async (q = null, page) => {
   const ITEM_PER_PAGE = 4
+  let users = []
 
-  if (q) {
-    try {
-      const { data, error } = await supabase
-        .from('users')
-        .select('*')
-        .ilike('username', q)
-        .order('username', { ascending: true })
-        .range((page - 1) * ITEM_PER_PAGE, page * ITEM_PER_PAGE - 1)
+  try {
+    const { data, error } = await supabase.from('users').select('*')
 
-      if (error) {
-        throw new Error('Failed to fetch users!')
-      }
-
-      const count = data.length
-      return { users: data, count }
-    } catch (error) {
-      throw error
+    if (q) {
+      users = data.filter((user) =>
+        user.username.toLowerCase().startsWith(q.toLowerCase())
+      )
+    } else {
+      users = data
     }
-  } else {
-    try {
-      const { data, error } = await supabase
-        .from('users')
-        .select('*')
-        .order('username', { ascending: true })
-        .range((page - 1) * ITEM_PER_PAGE, page * ITEM_PER_PAGE - 1)
 
-      if (error) {
-        throw new Error('Failed to fetch users!')
-      }
+    users = users.sort((a, b) => (a.username > b.username ? 1 : -1))
+    users = users.slice((page - 1) * ITEM_PER_PAGE, page * ITEM_PER_PAGE)
 
-      const count = data.length
-      return { users: data, count }
-    } catch (error) {
-      throw error
+    if (error) {
+      throw new Error('Failed to fetch users!')
     }
+
+    const count = users.length
+    return { users, count }
+  } catch (error) {
+    throw error
   }
 }
 
@@ -79,42 +67,34 @@ export const filterUser = async (column, value) => {
 
 export const fetchCustomRoutines = async (q = null, page) => {
   const ITEM_PER_PAGE = 4
-  const regex = `ilike '%${q}%'`
-  if (q) {
-    try {
-      const { data, error } = await supabase
-        .from('custom_routines')
-        .select('*')
-        .ilike('name', regex)
-        .order('name', { ascending: true })
-        .range((page - 1) * ITEM_PER_PAGE, page * ITEM_PER_PAGE - 1)
+  let customRoutines = []
+  try {
+    const { data, error } = await supabase.from('custom_routines').select('*')
 
-      if (error) {
-        throw new Error('Failed to fetch custom routines!')
-      }
-
-      const count = data.length
-      return { customRoutines: data, count }
-    } catch (error) {
-      throw error
+    if (q) {
+      customRoutines = data.filter((routine) =>
+        routine.name.toLowerCase().startsWith(q.toLowerCase())
+      )
+    } else {
+      customRoutines = data
     }
-  } else {
-    try {
-      const { data, error } = await supabase
-        .from('custom_routines')
-        .select('*')
-        .order('name', { ascending: true })
-        .range((page - 1) * ITEM_PER_PAGE, page * ITEM_PER_PAGE - 1)
 
-      if (error) {
-        throw new Error('Failed to fetch custom routines!')
-      }
+    customRoutines = customRoutines.sort((a, b) =>
+      a.username > b.username ? 1 : -1
+    )
+    customRoutines = customRoutines.slice(
+      (page - 1) * ITEM_PER_PAGE,
+      page * ITEM_PER_PAGE
+    )
 
-      const count = data.length
-      return { customRoutines: data, count }
-    } catch (error) {
-      throw error
+    if (error) {
+      throw new Error('Failed to fetch custom routines!')
     }
+
+    const count = customRoutines.length
+    return { customRoutines, count }
+  } catch (error) {
+    throw error
   }
 }
 
