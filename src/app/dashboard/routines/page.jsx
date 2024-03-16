@@ -10,10 +10,9 @@ const RoutinesPage = async ({ searchParams }) => {
   const q = searchParams?.q || ''
   const page = searchParams?.page || 1
   const { customRoutines, count } = await fetchCustomRoutines(q, page)
-  console.log(customRoutines[0].created_at)
 
   return (
-    <div className="bg-gray-800 p-5 rounded-lg mt-5">
+    <div className="bg-gray-800 p-5 rounded-lg mt-5 h-screen">
       <div className="flex items-center justify-between">
         <Search placeholder="Buscar una rutina..." />
         <Link href="/dashboard/routines/add">

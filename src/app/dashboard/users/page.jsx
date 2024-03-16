@@ -13,7 +13,7 @@ const UsersPage = async ({ searchParams }) => {
   const { users, count } = await fetchUsers(q, page)
 
   return (
-    <div className="bg-gray-800 p-5 rounded-lg mt-5">
+    <div className="bg-gray-800 p-5 rounded-lg mt-5 h-screen">
       <div className="flex items-center justify-between">
         <Search placeholder="Buscar un usuario..." />
         <Link href="/dashboard/users/add">
