@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import Image from 'next/image'
+import { IoCloseCircleSharp } from 'react-icons/io5'
 
 import dbLocal from '../../../localdb/db_local.json'
 
@@ -58,14 +59,20 @@ const ExerciseForm = ({
   }
 
   return (
-    <div className="bg-gray-800 p-5 rounded-lg mt-5">
+    <div className="bg-gray-800 border border-gray-700 p-5 rounded-lg my-6 mx-3">
+      <div className="flex justify-between mt-2 mb-5 mr-3">
+        <div></div>
+        <div>
+          <button type="button" onClick={handleCloseForm}>
+            <IoCloseCircleSharp size={32} />
+          </button>
+        </div>
+      </div>
+
       <form
         onSubmit={handleSubmitExercise}
         className="form-routine flex flex-wrap justify-between"
       >
-        <button type="button" onClick={handleCloseForm}>
-          X
-        </button>
         <select
           id="zone"
           name="zone"
@@ -80,6 +87,7 @@ const ExerciseForm = ({
           ))}
         </select>
         <select
+          className="text-gray-300"
           onChange={handleName}
           id="name"
           value={formData.name}
@@ -93,63 +101,75 @@ const ExerciseForm = ({
               </option>
             ))}
         </select>
+
         {formData.photo && (
-          <div>
+          <div className="border border-gray-700 rounded-lg p-5 mb-5 mx-auto flex items-center justify-center flex-col">
             <p>Foto ejercicio {formData.name}:</p>
             <Image
-              width={100}
-              height={80}
+              className="mt-5"
+              width={150}
+              height={120}
               src={formData.photo}
               alt={`Image for ${formData.name} exercise`}
             />
           </div>
         )}
-        <input
-          type="number"
-          id="series"
-          value={formData.series}
-          name="series"
-          placeholder="Series"
-          onChange={(e) => setFormData({ ...formData, series: e.target.value })}
-        />
-        <input
-          type="number"
-          id="count"
-          value={formData.count}
-          name="count"
-          placeholder="Repeticiones/Segundos"
-          onChange={(e) => setFormData({ ...formData, count: e.target.value })}
-        />
-        <input
-          type="text"
-          id="measure"
-          name="measure"
-          value={formData.measure}
-          placeholder="Medida"
-          onChange={(e) =>
-            setFormData({ ...formData, measure: e.target.value })
-          }
-        />
-        <input
-          type="text"
-          id="rest"
-          name="rest"
-          value={formData.rest}
-          placeholder="Descanso"
-          onChange={(e) => setFormData({ ...formData, rest: e.target.value })}
-        />
-        <input
-          type="text"
-          id="description"
-          name="description"
-          value={formData.description}
-          placeholder="Descripcion"
-          onChange={(e) =>
-            setFormData({ ...formData, description: e.target.value })
-          }
-        />
-
-        <button type="submit">Agregar</button>
+        <div className="flex flex-wrap justify-between">
+          <input
+            type="number"
+            id="series"
+            value={formData.series}
+            name="series"
+            placeholder="Series"
+            onChange={(e) =>
+              setFormData({ ...formData, series: e.target.value })
+            }
+          />
+          <input
+            type="number"
+            id="count"
+            value={formData.count}
+            name="count"
+            placeholder="Repeticiones/Segundos"
+            onChange={(e) =>
+              setFormData({ ...formData, count: e.target.value })
+            }
+          />
+          <input
+            type="text"
+            id="measure"
+            name="measure"
+            value={formData.measure}
+            placeholder="Medida"
+            onChange={(e) =>
+              setFormData({ ...formData, measure: e.target.value })
+            }
+          />
+          <input
+            type="text"
+            id="rest"
+            name="rest"
+            value={formData.rest}
+            placeholder="Descanso"
+            onChange={(e) => setFormData({ ...formData, rest: e.target.value })}
+          />
+          <input
+            type="text"
+            id="description"
+            name="description"
+            value={formData.description}
+            placeholder="Descripcion"
+            onChange={(e) =>
+              setFormData({ ...formData, description: e.target.value })
+            }
+          />
+        </div>
+        <button
+          className="p-3 w-full mx-5 rounded-lg bg-purple-800 hover:bg-purple-900 transition-all duration-200 ease-in-out"
+          type="submit"
+        >
+          Agregar
+        </button>
       </form>
     </div>
   )

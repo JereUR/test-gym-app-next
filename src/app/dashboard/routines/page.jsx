@@ -24,7 +24,7 @@ const RoutinesPage = async ({ searchParams }) => {
       </div>
       <table className="transactions-table w-full my-6">
         <thead>
-          <tr>
+          <tr className="border-b border-gray-700">
             <td>Nombre de Rutina</td>
             <td>Descripción</td>
             <td>Creada</td>

@@ -1,4 +1,3 @@
-
 import ExerciseForm from './ExerciseForm'
 import ExerciseList from './ExerciseList'
 
@@ -31,15 +30,17 @@ const DayContainer = ({
   }
 
   return (
-    <div className="border rounded p-4 mb-4 ">
-      <h3>{day}</h3>
+    <div className="bg-gray-800 rounded-lg p-4 mb-4">
+      <p className="text-xl text-gray-300 mb-2">{day}</p>
       {!showExerciseForm[dayIndex] && (
-        <button
-          className="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-700"
-          onClick={handleAddExercise}
-        >
-          Agregar ejercicio
-        </button>
+        <div className="flex right-10">
+          <button
+            className="bg-green-500 text-white p-2 m-4 rounded hover:bg-green-700"
+            onClick={handleAddExercise}
+          >
+            Agregar ejercicio
+          </button>
+        </div>
       )}
       {showExerciseForm[dayIndex] && (
         <ExerciseForm

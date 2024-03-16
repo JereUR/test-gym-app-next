@@ -87,9 +87,9 @@ const UpdateCustomRoutine = ({ data = null }) => {
   }
 
   return (
-    <div className="container mx-auto ">
-      <h1>Crear rutina</h1>
-      <form onSubmit={updateRoutine}>
+    <div className="container mx-auto my-3">
+      <p className="text-2xl p-2 text-gray-300">Editar rutina</p>
+      <form onSubmit={updateRoutine} className="form-custom-routine px-2 py-6">
         <input
           type="text"
           placeholder="Nombre de la rutina"
@@ -104,7 +104,9 @@ const UpdateCustomRoutine = ({ data = null }) => {
           value={description}
           onChange={(event) => setDescription(event.target.value)}
         />
-        <button>Actualizar rutina</button>
+        <button className="p-4 absolute top-45 right-10 bg-purple-800 hover:bg-purple-900 text-white border-none rounded-md cursor-pointer">
+          Actualizar rutina
+        </button>
       </form>
       <div className=" flex flex-col">
         {days.map((day, dayIndex) => (

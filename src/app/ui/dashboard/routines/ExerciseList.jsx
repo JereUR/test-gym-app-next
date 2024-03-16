@@ -9,55 +9,65 @@ const ExerciseList = ({
 }) => {
   // Handle empty exercise list gracefully
   if (!exercises || exercises.length === 0) {
-    return <p>Sin ejercicios.</p>
+    return (
+      <div className="text-center">
+        <p className="italic font-extralight">Sin ejercicios.</p>
+      </div>
+    )
   }
 
   return (
     <ul className="">
-      {exercises.map((exercise) => {
+      {exercises.map((exercise, index) => {
         return (
           <li
             key={exercise.id}
-            className="flex justify-between rounded p-2 m-2 w-full bg-gray-800" // Adjust width as needed
+            className="rounded p-3 m-3 w-full bg-gray-700" // Adjust width as needed
           >
-            <div className="text-center p-2">
-              <p>Ejercicio:</p>
-              <p>{exercise.name}</p>
+            <div className="flex justify-between items-end m-3 mb-5">
+              <div className="text-center p-2">
+                <p className="text-xl font-bold text-orange-600">
+                  {index + 1} - {exercise.name}
+                </p>
+              </div>
+              <div className="flex items-end">
+                <button
+                  className="bg-blue-500 text-white p-2 rounded ml-2 hover:bg-blue-600 hover:text-gray-200 transition-all duration-200 ease-out"
+                  onClick={() => editExercise(dayIndex, exercise)}
+                >
+                  Editar
+                </button>
+                <button
+                  className="bg-red-500 text-white p-2 rounded ml-2 hover:bg-red-600 hover:text-gray-200 transition-all duration-200 ease-out"
+                  onClick={() => removeExercise(dayIndex, exercise.id)}
+                >
+                  Borrar
+                </button>
+              </div>
             </div>
-            <div className="text-center p-2">
-              <p>Serie:</p>
-              <p>
-                {exercise.series} x {exercise.count} {exercise.measure}
-              </p>
-            </div>
-            <div className="text-center p-2">
-              <p>Descanso:</p>
-              <p>{exercise.rest}</p>
-            </div>
-            <div className="text-center p-2">
-              <p>{exercise.description}</p>
-            </div>
-            <div className="text-center p-2">
-              <Image
-                width={80}
-                height={60}
-                src={exercise.photo}
-                alt={`Image for ${exercise.name} exercise`}
-              />
-            </div>
-            <div className="flex gap-2 mt-2">
-              <button
-                className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-700 ml-2"
-                onClick={() => editExercise(dayIndex, exercise)}
-              >
-                Editar
-              </button>
-              <button
-                className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-700 ml-2"
-                onClick={() => removeExercise(dayIndex, exercise.id)}
-              >
-                Borrar
-              </button>
+            <div className="flex justify-between mx-5 my-2">
+              <div className="p-2">
+                <p className="font-bold text-gray-300">Serie</p>
+                <p className="font-extralight">
+                  {exercise.series} x {exercise.count} {exercise.measure}
+                </p>
+              </div>
+              <div className="p-2">
+                <p className="font-bold text-gray-300">Descanso</p>
+                <p className="font-extralight">{exercise.rest}</p>
+              </div>
+              <div className="p-2">
+                <p className="font-bold text-gray-300">Descripción</p>
+                <p className="font-extralight">{exercise.description}</p>
+              </div>
+              <div className="p-2">
+                <Image
+                  width={80}
+                  height={60}
+                  src={exercise.photo}
+                  alt={`Image for ${exercise.name} exercise`}
+                />
+              </div>
             </div>
           </li>
         )

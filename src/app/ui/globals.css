@@ -113,3 +113,15 @@ textarea:focus {
 .form-routine select {
   width: 45%;
 }
+
+.form-custom-routine input {
+  background-color: var(--bg);
+  border-radius: 5px;
+  border: 2px solid #2e374a;
+  color: var(--text);
+  font-size: 14px;
+  margin-bottom: 20px;
+  margin-right: 30px;
+  padding: 20px;
+  width: 33%;
+}
