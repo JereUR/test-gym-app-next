@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 import bcrypt from 'bcrypt'
 
 import { supabase } from './supabase'
+import { signIn } from '../auth'
 
 export const addUser = async (formData) => {
   const { username, email, password, phone, address, isAdmin, isActive } =

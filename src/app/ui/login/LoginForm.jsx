@@ -1,9 +1,10 @@
 'use client'
-import { useFormState } from 'react-dom'
 import { authenticate } from '@/app/services/actions'
+import { useFormState } from 'react-dom'
 
 const LoginForm = () => {
   const [state, formAction] = useFormState(authenticate, undefined)
+
   return (
     <form
       action={formAction}
@@ -15,7 +16,11 @@ const LoginForm = () => {
       <button className="p-7 bg-teal-700 text-white border-none cursor-pointer rounded-md w-full">
         Login
       </button>
-      {state && state}
+      {state && (
+        <div className="error-message">
+          <p>{state}</p>
+        </div>
+      )}
     </form>
   )
 }
