@@ -5,7 +5,6 @@ import { redirect } from 'next/navigation'
 import bcrypt from 'bcrypt'
 
 import { supabase } from './supabase'
-import { signIn } from '../auth'
 
 export const addUser = async (formData) => {
   const { username, email, password, phone, address, isAdmin, isActive } =
@@ -110,16 +109,28 @@ export const deleteUser = async (email) => {
   revalidatePath('/dashboard/users')
 }
 
-export const authenticate = async (prevState, formData) => {
-  const { username, password } = Object.fromEntries(formData)
+export const userSignUp = async (email, password) => {
+  const { error } = await supabase.auth.signUp({ email, password })
+  console.log(error)
 
+  if (!error) {
+    redirect('/dashboard')
+  } else {
+    return { error }
+  }
+}
+
+export const authenticate = async (email, password) => {
   try {
-    await signIn('credentials', { username, password })
-  } catch (err) {
-    if (err.message.includes('CredentialsSignin')) {
-      return 'Wrong Credentials'
-    }
-    throw err
+    await supabase.auth.signInWithPassword({
+      email: email,
+      password: password
+    })
+
+    return { redirect: { destination: '/dashboard', permanent: false } }
+  } catch (error) {
+    console.log(error)
+    throw new Error(error.message)
   }
 }
 
