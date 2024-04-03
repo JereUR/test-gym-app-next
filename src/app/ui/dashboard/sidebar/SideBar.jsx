@@ -4,7 +4,6 @@ import {
   MdDashboard,
   MdSupervisedUserCircle,
   MdShoppingBag,
-  MdAttachMoney,
   MdAnalytics,
   MdPeople,
   MdOutlineSettings,
