@@ -12,6 +12,7 @@ import {
   MdLogout
 } from 'react-icons/md'
 import { GiAbdominalArmor, GiMeal, GiProfit } from 'react-icons/gi'
+import { FaRegFilePdf } from 'react-icons/fa6'
 
 const menuItems = [
   {
@@ -43,9 +44,9 @@ const menuItems = [
         icon: <MdShoppingBag />
       },
       {
-        title: 'Transacciones',
-        path: '/dashboard/transactions',
-        icon: <MdAttachMoney />
+        title: 'Generador de PDF',
+        path: '/dashboard/pdf-generator',
+        icon: <FaRegFilePdf />
       }
     ]
   },
